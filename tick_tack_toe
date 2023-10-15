@@ -1,0 +1,510 @@
+//this is my super class that will have an x and y coordinate and will be used to draw the gridlines
+public class Drawing{
+  int outerX;
+  int outerY;
+  public Drawing(int outX, int outY){
+    outerX = outX;
+    outerY = outY;
+  }
+  // this methid will draw a vertical line using the x and y coordinates given
+  public void verticalLine(){
+    fill(0);
+    rect(outerX, outerY, 300,3);
+  }
+  // this methid will draw a horozontal line using the x and y coordinates given
+  public void horozintalLine(){
+    fill(0);
+    rect(outerX, outerY, 3,300);
+  }
+}
+//this class will be used to draw the X and O on the board 
+//it will use the X and Y coordinates from the super class and I am adding an equation for the inner coordinates because my X and O drawing will be made up of two circles or squares (the squares will be my X) in order to get the asthetics i need
+//i will also add a colour choice option so that i can draw the green squares when the computer wins
+public class TickTackToe extends Drawing{
+  int innerX;
+  int innerY;
+  boolean colourChoice;
+  public TickTackToe(int inX, int inY, int outX, int outY, boolean colour){
+    super( outX, outY);
+    innerX = inX;
+    innerY = inY;
+    colourChoice = colour;
+  }
+  //this method draws the X's or the squares in my case
+  //i use an if else statement to choose between drawing a green or black square
+  public void ogame (){
+    if(colourChoice == true){
+      fill(0,255,0);
+      ellipse(outerX,outerY,90,90);
+      fill(255);
+      ellipse(innerX,innerY,70,70);
+      
+    }else{
+      fill(0);
+      ellipse(outerX,outerY,90,90);
+      fill(255);
+      ellipse(innerX,innerY,70,70);
+    }  
+  }
+  //this method draws the O's 
+  //i use an if else statement to choose between drawing a green or black square
+  public void xgame (){
+    if(colourChoice == true){
+      fill(0,255,0);
+      rect(outerX,outerY,80,80);
+      fill(255);
+      rect(innerX,innerY,60,60);
+      
+    }else{
+      fill(0);
+      rect(outerX,outerY,80,80);
+      fill(255);
+      rect(innerX,innerY,60,60);
+    }  
+  } 
+  
+}
+
+//here i am defining my grid, i have created three 2D arrays that allow me to control the position of the drawings
+//my three grids allows me to diferentiate between the x's o's and the green x's
+boolean[][] xgrid = new boolean[3][3];
+boolean[][] ogrid = new boolean[3][3];
+boolean[][] ggrid = new boolean[3][3];
+//these variables are used by me to control the timing of the game
+//wait is used to control the time between moves to give the game a more natural playing speed
+int wait;
+//time is used to control the number of moves each player has taken which helps me shorten my code
+int time;
+// round is used to control the number of complete games played
+int round;
+// game is used to move from one game to another
+int game;
+
+void setup(){
+  size(300, 300);
+  
+}
+void draw(){
+   
+  
+  background(255,255,255);
+  
+//here i use the drawing class qnd the vertical and horozontal line method to create my gridlines
+  fill(0);
+  Drawing lineone = new Drawing (0,100);
+  lineone.verticalLine();
+  Drawing linetwo = new Drawing (0,200);
+  linetwo.verticalLine();
+  Drawing linethree = new Drawing (100,0);
+  linethree.horozintalLine();
+  Drawing linefour = new Drawing (200,0);
+  linefour.horozintalLine();
+// here i use my ticktack toe class as well as my 2D array to draw a O  
+    if (ggrid[0][0] == true){
+    TickTackToe i = new TickTackToe(20,20,10,10,true);
+    i.xgame();
+  }
+  if (ggrid[0][1] == true){
+    TickTackToe j = new TickTackToe(120,20,110,10,true);
+    j.xgame();
+  }  
+  
+  if (ggrid[0][2] == true){
+    TickTackToe k = new TickTackToe(220,20,210,10,true);
+    k.xgame();
+  }
+ 
+  if (ggrid[1][0] == true){
+    TickTackToe l = new TickTackToe(20,120,10,110,true);
+    l.xgame();
+  }
+  
+  if (ggrid[1][1] == true){
+    TickTackToe m = new TickTackToe(120,120,110,110,true);
+    m.xgame();
+  }
+  if (ggrid[1][2] == true){
+    TickTackToe y = new TickTackToe(220,120,210,110,true);
+    y.xgame();
+  }
+  if (ggrid[2][0] == true){
+    TickTackToe n = new TickTackToe(20,220,10,210,true);
+    n.xgame();
+  }
+  
+  if (ggrid[2][1] == true){
+    TickTackToe o = new TickTackToe(120,220,110,210,true);
+    o.xgame();
+  }
+  if (ggrid[2][2] == true){
+    TickTackToe p = new TickTackToe(220,220,210,210,true);
+    p.xgame();
+  }
+ 
+  if (ogrid[0][0] == true){
+    TickTackToe q = new TickTackToe(20,20,10,10,false);
+    q.xgame();
+  }
+  if (ogrid[0][1] == true){
+    TickTackToe r = new TickTackToe(120,20,110,10,false);
+    r.xgame();
+  } 
+  if (ogrid[0][2] == true){
+    TickTackToe s = new TickTackToe(220,20,210,10,false);
+    s.xgame();
+  }
+  if (ogrid[1][0] == true){
+    TickTackToe s = new TickTackToe(20,120,10,110,false);
+    s.xgame();
+  }
+  if (ogrid[1][1] == true){
+    TickTackToe t = new TickTackToe(120,120,110,110,false);
+    t.xgame();
+  }
+  
+  if (ogrid[1][2] == true){
+    TickTackToe u = new TickTackToe(220,120,210,110,false);
+    u.xgame();
+    fill(0);
+  }
+  if (ogrid[2][0] == true){
+    TickTackToe v = new TickTackToe(20,220,10,210,false);
+    v.xgame();
+  }
+  
+  
+  if (ogrid[2][1] == true){
+    TickTackToe w = new TickTackToe(120,220,110,210,false);
+    w.xgame();
+  }
+  
+  if (ogrid[2][2] == true){
+    TickTackToe x = new TickTackToe(220,220,210,210,false);
+    x.xgame();
+  }  
+  if (round == 1){
+    delay(500);
+    time ++;
+    round =0;
+  }
+  // here i use the mouse pressed function to tell the computer what square the person clicked on and asighning that to a 2D grid coordinate
+  // then i create an object using x and y coordinates and use the methods to draw a circle
+  // I also use the round variable to increase each time a circle is played in order to help me keep track of the rounds being played
+  if (mouseX>0 & mouseX<100 & mouseY>0 & mouseY<100 & mousePressed){
+    xgrid[0][0] = true;
+    round ++;
+  }
+  if (xgrid[0][0] == true){
+    TickTackToe aa = new TickTackToe(50,50,50,50,false);
+    aa.ogame();
+  }
+  
+  if (mouseX>100 & mouseX<200 & mouseY>0 & mouseY<100 & mousePressed){
+    xgrid[0][1] = true;
+    round ++;
+  }
+  if (xgrid[0][1] == true){
+    TickTackToe a = new TickTackToe(150,50,150,50,false);
+    a.ogame();
+  }
+  if (mouseX>200 & mouseX<300 & mouseY>0 & mouseY<100 & mousePressed){
+    xgrid[0][2] = true; 
+    round ++;
+  }
+  if (xgrid[0][2] == true){
+    TickTackToe b = new TickTackToe(250,50,250,50,false);
+    b.ogame();
+  }
+  if (mouseX>0 & mouseX<100 & mouseY>100 & mouseY<200 & mousePressed){
+    xgrid[1][0] = true; 
+    round ++;
+  }
+  if (xgrid[1][0] == true){
+    TickTackToe c = new TickTackToe(50,150,50,150,false);
+    c.ogame();
+  }
+  if (mouseX>100 & mouseX<200 & mouseY>100 & mouseY<200 & mousePressed){
+    xgrid[1][1] = true;
+    round ++;
+  }
+  if (xgrid[1][1] == true){
+    TickTackToe d = new TickTackToe(150,150,150,150,false);
+    d.ogame();
+  }
+  if (mouseX>200 & mouseX<300 & mouseY>100 & mouseY<200 & mousePressed){
+    xgrid[1][2] = true; 
+    round ++;
+  }
+  if (xgrid[1][2] == true){
+    TickTackToe e = new TickTackToe(250,150,250,150,false);
+    e.ogame();
+  }
+  if (mouseX>0 & mouseX<100 & mouseY>200 & mouseY<300 & mousePressed){
+    xgrid[2][0] = true; 
+    round ++;
+  }
+  if (xgrid[2][0] == true){
+    TickTackToe f = new TickTackToe(50,250,50,250,false);
+    f.ogame();
+  }
+  
+  if (mouseX>100 & mouseX<200 & mouseY>200 & mouseY<300 & mousePressed){
+    xgrid[2][1] = true;
+    round ++;
+  }
+  if (xgrid[2][1] == true){
+    TickTackToe g = new TickTackToe(150,250,150,250,false);
+    g.ogame();
+  }
+  
+  if (mouseX>200 & mouseX<300 & mouseY>200 & mouseY<300 & mousePressed){
+    xgrid[2][2] = true;
+    round ++;
+  }
+  if (xgrid[2][2] == true){
+    TickTackToe h = new TickTackToe(250,250,250,250,false);
+    h.ogame();
+  }
+  // this just turn the squares green whern there are three squares in a row
+  if(ogrid[0][0] == true && ogrid[0][1] == true && ogrid[0][2] == true){
+    ogrid[0][0] = false;
+    ogrid[0][1] = false;
+    ogrid[0][2] = false;
+    ggrid[0][0] = true;
+    ggrid[0][1] = true;
+    ggrid[0][2] = true;
+    game = 2;
+  }
+  if(ogrid[1][0] == true && ogrid[1][1] == true && ogrid[1][2] == true){
+    ogrid[1][0] = false;
+    ogrid[1][1] = false;
+    ogrid[1][2] = false;
+    ggrid[1][0] = true;
+    ggrid[1][1] = true;
+    ggrid[1][2] = true;
+    game = 2;
+    time = 0;
+  }
+  if(ogrid[2][0] == true && ogrid[2][1] == true && ogrid[2][2] == true){
+    ogrid[2][0] = false;
+    ogrid[2][1] = false;
+    ogrid[2][2] = false;
+    ggrid[2][0] = true;
+    ggrid[2][1] = true;
+    ggrid[2][2] = true;
+    game = 2;
+    time = 0;
+  }
+  if(ogrid[0][0] == true && ogrid[1][1] == true && ogrid[2][2] == true){
+    ogrid[0][0] = false;
+    ogrid[1][1] = false;
+    ogrid[2][2] = false;
+    ggrid[0][0] = true;
+    ggrid[1][1] = true;
+    ggrid[2][2] = true;
+    game = 2;
+    time = 0;
+  }
+  if(ogrid[2][0] == true && ogrid[1][1] == true && ogrid[0][2] == true){
+    ogrid[2][0] = false;
+    ogrid[1][1] = false;
+    ogrid[0][2] = false;
+    ggrid[2][0] = true;
+    ggrid[1][1] = true;
+    ggrid[0][2] = true;
+    game = 2;
+    time = 0;
+    
+  }
+  if(ogrid[0][0] == true && ogrid[1][0] == true && ogrid[2][0] == true){
+    ogrid[0][0] = false;
+    ogrid[1][0] = false;
+    ogrid[2][0] = false;
+    ggrid[0][0] = true;
+    ggrid[1][0] = true;
+    ggrid[2][0] = true;
+    game = 2;
+    time = 0;
+  }
+  if(ogrid[0][1] == true && ogrid[1][1] == true && ogrid[2][1] == true){
+    ogrid[0][1] = false;
+    ogrid[1][1] = false;
+    ogrid[2][1] = false;
+    ggrid[0][1] = true;
+    ggrid[1][1] = true;
+    ggrid[2][1] = true;
+    game = 2;
+    time = 0;
+  }
+  if(ogrid[0][2] == true && ogrid[1][2] == true && ogrid[2][2] == true){
+    ogrid[0][2] = false;
+    ogrid[1][2] = false;
+    ogrid[2][2] = false;
+    ggrid[0][2] = true;
+    ggrid[1][2] = true;
+    ggrid[2][2] = true;
+    game = 2;
+    time = 0;
+    
+  }
+  if((ogrid[0][0] == true || xgrid[0][0] == true) && (ogrid[0][1] == true || xgrid[0][1] == true) && (ogrid[0][2] == true || xgrid[0][2] == true) && (ogrid[1][0] == true || xgrid[1][0] == true) && (ogrid[1][1] == true || xgrid[1][1] == true) && (ogrid[1][2] == true ||xgrid[1][2] == true) && (ogrid[2][0] == true || xgrid[2][0] == true) && (ogrid[2][1] == true || xgrid[2][1] == true)&& (ogrid[2][2] == true || xgrid[2][2] == true)){
+    ggrid[2][2] = true;
+  }
+  if (ggrid[0][2] == true || ggrid[0][1] == true || ggrid[0][0]  == true || ggrid[1][0] == true || ggrid[1][1] == true || ggrid[1][2] == true || ggrid[2][0] == true || ggrid[2][1] == true || ggrid[2][2] == true){
+    wait ++;
+    time = 0;
+  }
+ // this is the bulk of my code, essentially i use if statements to create one possible output for every possible input using boolean variables in my 2D arrays to track the location of the played squares.
+ // i also use the rounds to minimize some of the repetitive writing i have to do by limiting the possible outputs to inputs of a certain round
+  if (game == 0){
+    if (time == 0){
+    ogrid[0][0] = true;
+    time=1;
+    }
+    if (ogrid[0][0] == true && xgrid[2][2] == false && time == 2){
+      ogrid[2][2] = true;
+    }
+    if(ogrid[0][0] == true &&xgrid[1][1] == false && ogrid[2][2] == true && time == 4){
+      ogrid[1][1] = true;
+    }
+    if(ogrid[0][0] == true && ogrid[2][2] == true && xgrid[1][1] == true && (xgrid[0][0] == false && xgrid[0][1] ==false && xgrid[1][0] == false && xgrid[1][2] == false && xgrid[2][0]==false && xgrid[2][1] ==false && xgrid[2][2] == false)&& xgrid[0][2] == true && time == 4){
+      ogrid[2][0] = true;
+    }
+    if(ogrid[0][0] == true && ogrid[2][2] == true && xgrid[1][1] == true && xgrid[2][0] == true && (xgrid[0][0] == false && xgrid[0][1] ==false && xgrid[0][2] == false && xgrid[1][0] == false&& xgrid[1][2] == false && xgrid[2][1] ==false && xgrid[2][2] == false) && time == 4){
+      ogrid[0][2] = true;
+    }
+    if(ogrid[0][0] == true && ogrid[2][2] == true && xgrid[1][1] == true && xgrid[0][1] == true && time == 4 &&(xgrid[0][0] == false && xgrid[0][2] == false && xgrid[1][0] == false && xgrid[1][2] == false && xgrid[2][0]==false && xgrid[2][1] ==false && xgrid[2][2] == false)){
+      ogrid[2][1] = true;
+    }
+    if(ogrid[0][0] == true && ogrid[2][2] == true && xgrid[1][1] == true && xgrid[2][1] == true && time == 4 && (xgrid[0][0] == false && xgrid[0][1] ==false && xgrid[0][2] == false && xgrid[1][0] == false && xgrid[1][2] == false && xgrid[2][0]==false && xgrid[2][2] == false)){
+      ogrid[0][1] = true;
+    }
+    if(ogrid[0][0] == true && ogrid[2][2] == true && xgrid[1][1] == true && xgrid[1][0] == true && time == 4 && (xgrid[0][0] == false && xgrid[0][1] ==false && xgrid[0][2] == false && xgrid[1][2] == false && xgrid[2][0]==false && xgrid[2][1] ==false && xgrid[2][2] == false)){
+      ogrid[1][2] = true;
+    }
+    if(ogrid[0][0] == true && ogrid[2][2] == true && xgrid[1][1] == true && xgrid[1][2] == true && time == 4 && (xgrid[0][0] == false && xgrid[0][1] ==false && xgrid[0][2] == false && xgrid[1][0] == false && xgrid[2][0]==false && xgrid[2][1] ==false && xgrid[2][2] == false)){
+      ogrid[1][0] = true;
+    }
+    if (ogrid[0][0] == true && xgrid[2][2] == true && time == 2){
+      ogrid[2][0] = true;
+    }
+    if (ogrid[0][0] == true && xgrid[2][2] == true && ogrid[2][0] == true && xgrid[1][0] == false && time == 4){
+      ogrid[1][0] = true;
+    }
+    if (ogrid[0][0] == true && xgrid[2][2] == true && ogrid[2][0] == true && xgrid[1][0] == true && time == 4){
+      ogrid[0][2] = true;
+    }
+    if (ogrid[0][0] == true && xgrid[2][2] == true && ogrid[2][0] == true && xgrid[1][0] == true && ogrid[0][2] == true && xgrid[1][1] == false && time == 6){
+      ogrid[1][1] = true;
+    }
+    if (ogrid[0][0] == true && xgrid[2][2] == true && ogrid[0][2] == false && ogrid[2][0] == true && xgrid[1][0] == true && ogrid[1][0] == false && ogrid[0][2] == true && xgrid[0][1] == false && xgrid[1][1] == true && time == 6){
+      ogrid[0][1] = true;
+    }
+    if (ogrid[0][0] == true && ogrid[0][1] == true && xgrid[0][2] == true && xgrid[1][1] == true && xgrid[2][1] == true && ogrid[2][2] == true && xgrid[2][0] == false && time == 6){
+      ogrid[2][0] = true;
+    }
+    if (ogrid[0][0] == true && ogrid[0][1] == true && xgrid[0][2] == true && ogrid[0][2] == false && xgrid[1][1] == true && xgrid[2][1] == true && ogrid[2][2] == true && xgrid[2][0] == false && xgrid[1][0] == true && time == 8){
+      ogrid[1][2] = true;
+    }
+    if (ogrid[0][0] == true && ogrid[0][1] == true && xgrid[0][2] == true && xgrid[1][1] == true && xgrid[2][1] == true && ogrid[2][2] == true && xgrid[2][0] == false && xgrid[1][2] == true && time == 8){ 
+      ogrid[1][0] = true;
+    }
+    if (ogrid[0][0] == true && ogrid[0][1] == true && xgrid[1][1] == true && xgrid[2][0] == true && xgrid[2][1] == true && ogrid[2][2] == true && time == 6){
+      ogrid[0][2] = true;
+    }
+    if (ogrid[0][0] == true && xgrid[0][1] == true && ogrid[0][2] == true && ogrid[1][0] == false && xgrid[1][1] == true && xgrid[2][0] == true && ogrid[2][1] == false && ogrid[2][2] == true && time == 6){
+      ogrid[1][2] = true;
+    }
+    if (ogrid[0][0] == true && ogrid[0][2] == true && xgrid[0][1] == false && ogrid[0][1] == false && xgrid[1][1] == true && ogrid[1][0] == false && xgrid[1][2] == true && xgrid[2][0] == true && ogrid[2][2] == true && ogrid[1][1] == false && time == 6){
+      ogrid[0][1] = true;
+    }
+    if (ogrid[0][0] == true && xgrid[0][2] == true && xgrid[1][0] == true && xgrid[1][1] == true && ogrid[1][2] == false && ogrid[2][0] == true && ogrid[2][2] == true && xgrid[2][1] == false && time == 6){
+      ogrid[2][1] = true;
+    }
+    if (ogrid[0][0] == true && xgrid[0][1] == true && ogrid[0][2] == false && xgrid[0][2] == false && xgrid[1][0] == false && ogrid[1][0] == false && xgrid[1][1] == true && ogrid[1][2]== false && xgrid[1][2] == false && ogrid[1][2] == false && xgrid[2][0] == true && ogrid[2][1] == true && ogrid[2][2] == true && time == 6){
+      ogrid[0][2] = true;
+    }
+    if (ogrid[0][0] == true && xgrid[0][1] == true && ogrid[0][2] == true && xgrid[0][2] == false && xgrid[1][0] == false && ogrid[1][0] == false && xgrid[1][1] == true && ogrid[1][2]== false && xgrid[1][2] == true && xgrid[2][0] == true && ogrid[2][1] == true && ogrid[2][2] == true && time == 8){
+      ogrid[1][0] = true;
+    }
+     if (ogrid[0][0] == true && xgrid[0][1] == true && ogrid[0][2] == true && xgrid[0][2] == false && xgrid[1][0] == true && ogrid[1][0] == false && xgrid[1][1] == true && ogrid[1][2]== false && xgrid[1][2] == false && xgrid[2][0] == true && ogrid[2][1] == true && ogrid[2][2] == true && time == 8){
+      ogrid[1][2] = true;
+    }
+    if (ogrid[0][0] == true && xgrid[0][1] == false && ogrid[0][2] == false && xgrid[0][2] == false && ogrid[1][0] == true && xgrid[1][1] == true && xgrid[1][2] == true && xgrid[2][0] == true && ogrid[2][1] == false && ogrid[2][2] == true && time == 6){
+      ogrid[0][2] = true;
+    }
+    if (ogrid[0][0] == true && xgrid[0][1] == false && ogrid[0][2] == false && xgrid[0][2] == true && xgrid[1][0] == true && xgrid[1][1] == true && ogrid[1][2] == true && xgrid[2][0] == false && ogrid[2][1] == false && ogrid[2][2] == true && time == 6){
+      ogrid[2][0] = true;
+    }
+    if (ogrid[0][0] == true && xgrid[0][1] == false && ogrid[0][2] == false && xgrid[0][2] == true && xgrid[1][0] == true && xgrid[1][1] == true && ogrid[1][2] == true && ogrid[2][0] == true && ogrid[2][1] == false && xgrid[2][1] == true && ogrid[2][2] == true && time == 8){
+      ogrid[0][1] = true;
+    }
+    if (ogrid[0][0] == true && xgrid[0][1] == true && ogrid[0][2] == false && xgrid[0][2] == false && xgrid[1][0] == true && xgrid[1][1] == true && ogrid[1][2] == true && xgrid[2][0] == false && ogrid[2][1] == false && ogrid[2][2] == true && time == 4){
+      ogrid[0][2] = true;
+    }
+    if (ogrid[0][0] == true && xgrid[0][1] == false && ogrid[0][2] == false && xgrid[0][2] == false && xgrid[1][0] == true && xgrid[1][1] == true && ogrid[1][2] == true && xgrid[2][0] == true && ogrid[2][1] == false && ogrid[2][2] == true && time == 4){
+      ogrid[0][2] = true;
+    }
+    if (ogrid[0][0] == true && xgrid[0][1] == false && ogrid[0][2] == false && xgrid[0][2] == false && xgrid[1][0] == true && xgrid[1][1] == true && ogrid[1][2] == true && xgrid[2][0] == false && ogrid[2][1] == false && ogrid[2][2] == true && xgrid[2][1] == true && time == 4){
+      ogrid[0][2] = true;
+    }
+    if(ogrid[0][0] == true && xgrid[0][1] == true && xgrid[0][2] == true && xgrid[1][0] == true && xgrid[1][1] == true && ogrid[1][2] == true && ogrid[2][0] == true && ogrid[2][1] == false && xgrid[2][1] == false && ogrid[2][2] == true && time == 8){
+      ogrid[2][1] = true;
+    }
+    if(ogrid[0][0] == true && xgrid[0][1] == true && ogrid[0][2] == true && ogrid[1][0] == true && xgrid[1][1] == true && xgrid[1][2] == true && xgrid[2][0] == true && ogrid[2][1] == false && xgrid[2][1] == false && ogrid[2][2] == true && time == 8){
+      ogrid[2][1] = true;
+    }
+    if(ogrid[0][0] == true && xgrid[0][1] == true && ogrid[0][2] == false && ogrid[1][0] == true && xgrid[1][1] == true && xgrid[1][2] == true && xgrid[2][0] == false && ogrid[2][1] == false && xgrid[2][1] == false && ogrid[2][2] == true && time == 6){
+      ogrid[2][0] = true;
+    }
+    if(ogrid[0][0] == true && xgrid[0][1] == false && ogrid[0][2] == false && xgrid[0][2] == true && ogrid[1][0] == true && xgrid[1][1] == true && xgrid[1][2] == true && xgrid[2][0] == false && ogrid[2][1] == false && xgrid[2][1] == false && ogrid[2][2] == true && time == 6){
+      ogrid[2][0] = true;
+    }
+    if(ogrid[0][0] == true && xgrid[0][1] == false && ogrid[0][2] == false && xgrid[0][2] == false && ogrid[1][0] == true && xgrid[1][1] == true && xgrid[1][2] == true && xgrid[2][0] == false && ogrid[2][1] == false && xgrid[2][1] == true && ogrid[2][2] == true && time == 6){
+      ogrid[2][0] = true;
+    }
+    if(ogrid[0][0] == true && xgrid[0][1] == true && xgrid[0][2] == true && xgrid[1][0] == false && ogrid[1][0] == false && xgrid[1][1] == true && ogrid[1][2] == false && xgrid[1][2] == false && xgrid[2][0] == false && ogrid[2][0] == false && xgrid[2][1] == true && ogrid[2][2] == true && time == 6){
+      ogrid[2][0] = true;
+    }
+    if (ogrid[0][0] == true && ogrid[0][1] == true && ogrid[0][2] == false && xgrid[0][2] == false && xgrid[1][0] == true && xgrid[1][1] == true && ogrid[1][2] == false && xgrid[1][2] == false && ogrid[2][0] == false && xgrid[2][0] == false && xgrid[2][1] == true && ogrid[2][2] == true && time == 6){
+      ogrid[0][2] = true;
+    }
+    if (ogrid[0][0] == true && ogrid[0][1] == true && ogrid[0][2] == false && xgrid[0][2] == false && xgrid[1][0] == false && ogrid[1][0] == false && xgrid[1][1] == true && ogrid[1][2] == false && xgrid[1][2] == true && ogrid[2][0] == false && xgrid[2][0] == false && xgrid[2][1] == true && ogrid[2][2] == true && time == 6){
+      ogrid[0][2] = true;
+    }
+    if (ogrid[0][0] == true && ogrid[0][1] == false && xgrid[0][1] == false && ogrid[0][2]== true && xgrid[1][0]== true && xgrid[1][1] == true && ogrid[1][2] == false && xgrid[1][2] == false && xgrid[2][0] == true && ogrid[2][1] == false && xgrid[2][1] == false && ogrid[2][2] == true && time == 6){
+      ogrid[0][1] = true;
+    }
+    if (ogrid[0][0] == true && ogrid[0][1] == false && xgrid[0][1] == false && ogrid[0][2]== true && xgrid[1][0]== false && xgrid[1][1] == true && ogrid[1][2] == false && xgrid[1][2] == false && xgrid[2][0] == true && ogrid[2][1] == false && xgrid[2][1] == true && ogrid[2][2] == true && time == 6){
+      ogrid[0][1] = true;
+    }
+    if (ogrid[0][0] == true && ogrid[0][1] == false && xgrid[0][1] == true && xgrid[0][2] == true && xgrid[1][0]== false && xgrid[1][1] == true && ogrid[1][2] == false && xgrid[1][2] == false && xgrid[2][0] == false && ogrid[2][1] == true && xgrid[2][1] == false && ogrid[2][2] == true && time == 6){
+      ogrid[2][0] = true;
+    }
+    if (ogrid[0][0] == true && ogrid[0][1] == false && xgrid[0][1] == false && xgrid[0][2] == true && xgrid[1][0]== false && xgrid[1][1] == true && ogrid[1][2] == false && xgrid[1][2] == false && ogrid[2][0] == true && xgrid[2][1] == true && ogrid[2][2] == true && time == 6){
+      ogrid[1][0] = true;
+    }
+    if (ogrid[0][0] == true && ogrid[0][1] == false && xgrid[0][1] == false && xgrid[0][2] == true && xgrid[1][0]== false && xgrid[1][1] == true && ogrid[1][2] == false && xgrid[1][2] == true && ogrid[2][0] == true && xgrid[2][1] == false && ogrid[2][2] == true && time == 6){
+      ogrid[1][0] = true;
+    }
+    if (ogrid[0][0] == true && ogrid[0][1] == false && xgrid[0][1] == true && xgrid[0][2] == true && xgrid[1][0]== false && ogrid[1][0] == false && xgrid[1][1] == true && ogrid[1][2] == false && xgrid[1][2] == false && xgrid[2][0] == false && ogrid[2][0] == true && xgrid[2][1] == false && ogrid[2][2] == true && time == 6){
+      ogrid[2][1] = true;
+    }
+    if (ogrid[0][0] == true && ogrid[0][1] == false && xgrid[0][1] == false && ogrid[0][2] == true && xgrid[1][0]== true && xgrid[1][1] == true && ogrid[1][2] == false && xgrid[1][2] == false && ogrid[2][0] == true && xgrid[2][1] == false && xgrid[2][2] == true && time == 6){
+      ogrid[0][1] = true;
+    }
+    if (ogrid[0][0] == true && xgrid[0][1] == true && ogrid[0][2] == false && xgrid[0][2] == false && ogrid[1][0] == false && xgrid[1][0] == false && xgrid[1][1] == true && xgrid[1][2] == true && ogrid[2][0]== false && xgrid[2][0] == false && ogrid[2][1] == true && ogrid[2][2] == true && time == 6){
+      ogrid[2][0] = true;
+    }
+    if (ogrid[0][0] == true && xgrid[0][1] == true && ogrid[0][2] == false && xgrid[0][2] == false && ogrid[1][0] == false && xgrid[1][0] == true && xgrid[1][1] == true && xgrid[1][2] == false && ogrid[1][2] == false && ogrid[2][0]== false && xgrid[2][0] == false && ogrid[2][1] == true && ogrid[2][2] == true && time == 6){
+      ogrid[2][0] = true;
+    }
+    if (ogrid[0][0] == true && xgrid[0][1] == false && ogrid[0][1] == false && ogrid[0][2] == true && xgrid[0][2] == false && ogrid[1][0] == true && xgrid[1][0] == false && xgrid[1][1] == true && xgrid[1][2] == true && ogrid[1][2] == false && ogrid[2][0]== false && xgrid[2][0] == true && xgrid[2][1] == true && ogrid[2][2] == true && time == 8){
+      ogrid[0][1] = true;
+    }
+    if (ogrid[0][0] == true && xgrid[0][1] == false && ogrid[0][1] == false && ogrid[0][2] == false && xgrid[0][2] == true && ogrid[1][0] == true && xgrid[1][0] == false && xgrid[1][1] == true && xgrid[1][2] == true && ogrid[1][2] == false && ogrid[2][0]== true && xgrid[2][0] == false && xgrid[2][1] == true && ogrid[2][2] == true && time == 8){
+      ogrid[0][1] = true;
+    }
+  }
+}
+
