@@ -1,4 +1,5 @@
-Tic-Tac-Toe Game
+#Tic-Tac-Toe Game
+
 This repository contains a simple implementation of a tic-tac-toe game using the Processing programming environment. The code is organized into two classes, Drawing and TickTackToe, responsible for drawing gridlines, X's, and O's. The game logic involves the use of 2D boolean arrays (xgrid, ogrid, ggrid) to control the positions of X's, O's, and green X's.
 
 Classes
